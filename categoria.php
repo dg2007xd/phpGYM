@@ -11,7 +11,7 @@ try {
     $idcategoria = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
     // Construir consulta SQL
-    $sql = "SELECT idcategoria, nombrecategoria, total FROM categoria";
+    $sql = "SELECT idcategoria, nombrecategoria, imagencategoria, total FROM categoria";
     $params = [];
     
     // Si se especifica un ID de categoría, filtrar
