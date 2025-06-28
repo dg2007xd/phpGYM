@@ -3,6 +3,9 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include 'DBconnect.php';
+$objDb = new DBconnect;
+$cn = $objDb->connect();
+
 
 $idcategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : '';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

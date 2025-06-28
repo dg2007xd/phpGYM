@@ -4,6 +4,9 @@
     header("Access-Control-Allow-Headers: Content-Type");
     
     include 'DBconnect.php';
+    $objDb = new DBconnect;
+    $cn = $objDb->connect();
+    
     $sql = "SELECT * FROM planes";
     $rs = $cn->prepare($sql);
     $rs->execute();

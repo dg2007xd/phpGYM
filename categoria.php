@@ -6,6 +6,9 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 include 'DBconnect.php';
 
+$objDb = new DBconnect;
+$cn = $objDb->connect();
+
 try {
     // Obtener parámetro id si existe
     $idcategoria = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -13,7 +16,7 @@ try {
     // Construir consulta SQL
     $sql = "SELECT idcategoria, nombrecategoria, imagencategoria, total FROM categoria";
     $params = [];
-    
+
     // Si se especifica un ID de categoría, filtrar
     if ($idcategoria > 0) {
         $sql .= " WHERE idcategoria = :idcategoria";
@@ -39,7 +42,6 @@ try {
 
     // Devolver resultados
     echo json_encode($categorias);
-
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([
@@ -47,4 +49,3 @@ try {
         "error" => $e->getMessage()
     ]);
 }
-?>
