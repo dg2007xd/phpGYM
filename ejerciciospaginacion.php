@@ -5,7 +5,7 @@
     $pagina = $_GET["pagina"];
     $filasPagina = $_GET["filasPagina"];
     
-    $inicioPagina = $pagina * $filasPagina;
+    $inicioPagina = ($pagina - 1) * $filasPagina;
 
     $sql = "SELECT idejercicio, nombre, categoria_beneficio, tipo_ejercicio, equipo_necesario 
             FROM ejercicios LIMIT $inicioPagina , $filasPagina";
