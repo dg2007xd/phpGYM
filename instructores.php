@@ -9,7 +9,7 @@ $numeroPagina = $_GET["numero_pagina"]; // Por ejemplo: 2
 $inicioPagina = ($numeroPagina - 1) * $filasPagina;
 
 // Consulta principal: datos de sesiones con cliente y entrenador
-$sql = "SELECT sesiones.idsesion, sesiones.fecha,
+$sql = "SELECT sesiones.idsesion, sesiones.fechasesion,
                    CONCAT(clientes.nombre, ' (Edad: ', clientes.edad, ')') AS cliente,
                    CONCAT(entrenadores.nombre, ' - ', entrenadores.especialidad) AS entrenador
             FROM sesiones
