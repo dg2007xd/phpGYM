@@ -9,13 +9,13 @@ $numeroPagina = $_GET["numero_pagina"]; // Por ejemplo: 2
 $inicioPagina = ($numeroPagina - 1) * $filasPagina;
 
 // Consulta principal: datos de sesiones con cliente y entrenador
-$sql = "SELECT sesiones.id_sesion, sesiones.fecha,
+$sql = "SELECT sesiones.idsesion, sesiones.fecha,
                    CONCAT(clientes.nombre, ' (Edad: ', clientes.edad, ')') AS cliente,
                    CONCAT(entrenadores.nombre, ' - ', entrenadores.especialidad) AS entrenador
             FROM sesiones
-            INNER JOIN clientes ON sesiones.id_cliente = clientes.id_cliente
-            INNER JOIN entrenadores ON sesiones.id_entrenador = entrenadores.id_entrenador
-            ORDER BY sesiones.id_sesion DESC
+            INNER JOIN clientes ON sesiones.idcliente = clientes.idcliente
+            INNER JOIN entrenadores ON sesiones.identrenador = entrenadores.identrenador
+            ORDER BY sesiones.idsesion DESC
             LIMIT $inicioPagina, $filasPagina";
 
 $rs = $cn->prepare($sql);
@@ -24,11 +24,11 @@ $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
 
 // Por cada sesión obtenemos sus servicios aplicados
 foreach ($rows as &$row) {
-    $sqlDetalle = "SELECT servicios.nombre_servicio, servicios.descripcion, servicios.precio_hora,
+    $sqlDetalle = "SELECT servicios.nombreservicio, servicios.descripcion, servicios.precioxhora,
                               detalle_sesion.duracion_horas
                        FROM detalle_sesion
-                       INNER JOIN servicios ON detalle_sesion.id_servicio = servicios.id_servicio
-                       WHERE detalle_sesion.id_sesion = " . $row["id_sesion"];
+                       INNER JOIN servicios ON detalle_sesion.idservicio = servicios.idservicio
+                       WHERE detalle_sesion.idsesion = " . $row["idsesion"];
 
     $rsDetalle = $cn->prepare($sqlDetalle);
     $rsDetalle->execute();
@@ -36,7 +36,7 @@ foreach ($rows as &$row) {
 }
 
 // Total de sesiones (para la paginación)
-$sqlTotal = "SELECT COUNT(id_sesion) AS total FROM sesiones";
+$sqlTotal = "SELECT COUNT(idsesion) AS total FROM sesiones";
 $rsTotal = $cn->prepare($sqlTotal);
 $rsTotal->execute();
 $totalFilas = $rsTotal->fetch(PDO::FETCH_ASSOC)["total"];
