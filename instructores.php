@@ -11,7 +11,7 @@ $inicioPagina = ($numeroPagina - 1) * $filasPagina;
 // Consulta principal: datos de sesiones con cliente y entrenador
 $sql = "SELECT sesiones.idsesion, sesiones.fechasesion,
                    CONCAT(clientes.nombre, ' (Edad: ', clientes.edad, ')') AS cliente,
-                   CONCAT(entrenadores.nombre, ' - ', entrenadores.especialidad) AS entrenador
+                   CONCAT(entrenadores.nombreentrenador, ' - ', entrenadores.especialidad) AS entrenador
             FROM sesiones
             INNER JOIN clientes ON sesiones.idcliente = clientes.idcliente
             INNER JOIN entrenadores ON sesiones.identrenador = entrenadores.identrenador
