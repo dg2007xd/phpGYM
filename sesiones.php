@@ -13,7 +13,8 @@ $sql = "SELECT sesiones.idsesion, sesiones.fechasesion,
                    clientes.nombre AS nombre_cliente,
                    clientes.edad AS edad_cliente,
                    entrenadores.nombreentrenador AS nombre_entrenador,
-                   entrenadores.especialidad AS especialidad_entrenador
+                   entrenadores.especialidad AS especialidad_entrenador,
+                   entrenadores.experiencia AS experiencia_entrenador
             FROM sesiones
             INNER JOIN clientes ON sesiones.idcliente = clientes.idcliente
             INNER JOIN entrenadores ON sesiones.identrenador = entrenadores.identrenador
