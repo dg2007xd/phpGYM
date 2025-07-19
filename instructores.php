@@ -10,8 +10,10 @@ $inicioPagina = ($numeroPagina - 1) * $filasPagina;
 
 // Consulta principal: datos de sesiones con cliente y entrenador
 $sql = "SELECT sesiones.idsesion, sesiones.fechasesion,
-                   CONCAT(clientes.nombre, ' (Edad: ', clientes.edad, ')') AS cliente,
-                   CONCAT(entrenadores.nombreentrenador, ' - ', entrenadores.especialidad) AS entrenador
+                   clientes.nombre AS nombre_cliente,
+                   clientes.edad AS edad_cliente,
+                   entrenadores.nombreentrenador AS nombre_entrenador,
+                   entrenadores.especialidad AS especialidad_entrenador
             FROM sesiones
             INNER JOIN clientes ON sesiones.idcliente = clientes.idcliente
             INNER JOIN entrenadores ON sesiones.identrenador = entrenadores.identrenador
@@ -24,7 +26,7 @@ $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
 
 // Por cada sesión obtenemos sus servicios aplicados
 foreach ($rows as &$row) {
-    $sqlDetalle = "SELECT servicios.nombreservicio, servicios.descripcion, servicios.precioxhora,
+    $sqlDetalle = "SELECT detalle_sesion.idservicio, servicios.nombreservicio, servicios.descripcion, servicios.precioxhora,
                               detalle_sesion.duracion_horas
                        FROM detalle_sesion
                        INNER JOIN servicios ON detalle_sesion.idservicio = servicios.idservicio
